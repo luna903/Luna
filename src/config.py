@@ -18,19 +18,19 @@ def load_config() -> Dict[str, Any]:
         try:
             with open(CONFIG_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                logger.info("配置加载成功: %s", str(CONFIG_FILE))
+                logger.info("Конфигурация успешно загружена: %s", str(CONFIG_FILE))
                 return data
         except Exception:
-            logger.exception("配置加载失败: %s", str(CONFIG_FILE))
+            logger.exception("Не удалось загрузить конфигурацию: %s", str(CONFIG_FILE))
     return {"source_folder": "", "sorted_folder": "", "history": [], "ignore_list": []}
 
 def save_config(config: Dict[str, Any]) -> None:
     try:
         with open(CONFIG_FILE, "w", encoding="utf-8") as f:
             json.dump(config, f, indent=2, ensure_ascii=False)
-        logger.info("配置保存成功: %s", str(CONFIG_FILE))
+        logger.info("Конфигурация успешно сохранена: %s", str(CONFIG_FILE))
     except Exception:
-        logger.exception("配置保存失败: %s", str(CONFIG_FILE))
+        logger.exception("Не удалось сохранить настройки: %s", str(CONFIG_FILE))
 
 def get_ignore_list_path(source_folder: str) -> Optional[Path]:
     if not source_folder:
@@ -39,7 +39,7 @@ def get_ignore_list_path(source_folder: str) -> Optional[Path]:
     ignore_folder = parent / "Игнор-лист"
     ignore_folder.mkdir(exist_ok=True)
     path = ignore_folder / "ignore_list.txt"
-    logger.info("忽略列表路径: %s", str(path))
+    logger.info("Путь к списку исключений: %s", str(path))
     return path
 
 def load_ignore_list(source_folder: str) -> List[str]:
@@ -48,10 +48,10 @@ def load_ignore_list(source_folder: str) -> List[str]:
         try:
             with open(p, "r", encoding="utf-8") as f:
                 items = [line.strip() for line in f if line.strip()]
-                logger.info("忽略列表加载: %d 条", len(items))
+                logger.info("Загрузка списка игнорирования: %d 条", len(items))
                 return items
         except Exception:
-            logger.exception("忽略列表加载失败: %s", str(p))
+            logger.exception("Не удалось загрузить список исключений: %s", str(p))
     return []
 
 def save_ignore_list(source_folder: str, ignore_list: List[str]) -> None:
@@ -60,6 +60,6 @@ def save_ignore_list(source_folder: str, ignore_list: List[str]) -> None:
         try:
             with open(p, "w", encoding="utf-8") as f:
                 f.write("\n".join(ignore_list))
-            logger.info("忽略列表保存: %d 条 -> %s", len(ignore_list), str(p))
+            logger.info("Сохранение списка игнорирования: %d 条 -> %s", len(ignore_list), str(p))
         except Exception:
-            logger.exception("忽略列表保存失败: %s", str(p))
+            logger.exception("Не удалось сохранить список исключений: %s", str(p))
