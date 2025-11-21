@@ -48,7 +48,7 @@ def load_ignore_list(source_folder: str) -> List[str]:
         try:
             with open(p, "r", encoding="utf-8") as f:
                 items = [line.strip() for line in f if line.strip()]
-                logger.info("Загрузка списка игнорирования: %d 条", len(items))
+                logger.info("Загрузка списка игнорирования: %d запись", len(items))
                 return items
         except Exception:
             logger.exception("Не удалось загрузить список исключений: %s", str(p))
@@ -60,6 +60,6 @@ def save_ignore_list(source_folder: str, ignore_list: List[str]) -> None:
         try:
             with open(p, "w", encoding="utf-8") as f:
                 f.write("\n".join(ignore_list))
-            logger.info("Сохранение списка игнорирования: %d 条 -> %s", len(ignore_list), str(p))
+            logger.info("Сохранение списка игнорирования: %d запись -> %s", len(ignore_list), str(p))
         except Exception:
             logger.exception("Не удалось сохранить список исключений: %s", str(p))

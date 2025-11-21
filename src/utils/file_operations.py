@@ -80,7 +80,6 @@ def move_file(src, dest):
         raise  
 
 def delete_file(file_path):
-    """Delete a file at the specified path."""
     # 开始删除文件/Начать удаление файлов
     logger.info("Начало удаления файла：путь=%s", file_path)
     try:
